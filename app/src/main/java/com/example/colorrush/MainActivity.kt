@@ -6,21 +6,31 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.*
+import java.lang.Runnable
 import kotlin.properties.Delegates
 
 
 class MainActivity : AppCompatActivity() {
-    val location = IntArray(2)
     var counter : Int =3
-    var ball_code by Delegates.notNull<Int>()
-    var bat_code by Delegates.notNull<Int>()
+    var ball_code =0
+    var bat_code =0
+    var score : Int =0;
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main)
 
         val redBox=findViewById<ImageView>(R.id.redBox)
@@ -28,16 +38,77 @@ class MainActivity : AppCompatActivity() {
         val greenBox=findViewById<ImageView>(R.id.greenBox)
         val yellowBox=findViewById<ImageView>(R.id.yellowBox)
 
-        val rnds = (1..4).random()
 
-        if(rnds==1){ball_code=1;}
-        else
-        if(rnds==2){ball_code=2;}
-        else
-        if(rnds==3){ball_code=3;}
-        else
-        if(rnds==4){ball_code=4;}
 
+        val blueBall=findViewById<ImageView>(R.id.blueball)
+        val greenBall=findViewById<ImageView>(R.id.greenball)
+        val yellowBall=findViewById<ImageView>(R.id.yellowball)
+        val redBall=findViewById<ImageView>(R.id.redball)
+
+
+        GlobalScope.launch {
+
+            while(true)
+            {val job = GlobalScope.launch {
+                val rnds = (1..4).random()
+
+                if (rnds == 1) {
+                    ball_code = 1;
+                } else
+                    if (rnds == 2) {
+                        ball_code = 2;
+                    } else
+                        if (rnds == 3) {
+                            ball_code = 3;
+                        } else
+                            if (rnds == 4) {
+                                ball_code = 4;
+                            }
+
+            }
+
+            runBlocking {
+
+                job.join()
+
+                val ball_animation: Animation =
+                    AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
+                if (ball_code == 1) {
+                    blueBall.startAnimation(ball_animation)
+                    redBall.visibility = View.INVISIBLE
+                    greenBall.visibility = View.INVISIBLE
+                    yellowBall.visibility = View.INVISIBLE
+                }
+                if (ball_code == 2) {
+                    greenBall.startAnimation(ball_animation)
+                    redBall.visibility = View.INVISIBLE
+                    blueBall.visibility = View.INVISIBLE
+                    yellowBall.visibility = View.INVISIBLE
+                }
+                if (ball_code == 3) {
+                    redBall.startAnimation(ball_animation)
+                    blueBall.visibility = View.INVISIBLE
+                    greenBall.visibility = View.INVISIBLE
+                    yellowBall.visibility = View.INVISIBLE
+                }
+                if (ball_code == 4) {
+                    yellowBall.startAnimation(ball_animation)
+                    redBall.visibility = View.INVISIBLE
+                    greenBall.visibility = View.INVISIBLE
+                    blueBall.visibility = View.INVISIBLE
+                }
+
+                if (ball_code == bat_code)
+                    score++;
+                else
+                    score--;
+
+            }
+                delay(1000)
+                job.cancel()
+        }
+
+        }
 
     }
 
@@ -73,12 +144,23 @@ class MainActivity : AppCompatActivity() {
 
     fun rightRotate(view : View)
     {
+
+
+
+
         counter++;
         val redBox=findViewById<ImageView>(R.id.redBox)
         val blueBox=findViewById<ImageView>(R.id.blueBox)
         val greenBox=findViewById<ImageView>(R.id.greenBox)
         val yellowBox=findViewById<ImageView>(R.id.yellowBox)
+        //val ball=findViewById<ImageView>(R.id.ball)
 
+//
+//        var run = Runnable{
+//            val ball_animation: Animation =
+//                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
+//            ball.startAnimation(ball_animation);
+//        }
 
 
         if(counter%4==0) {
@@ -104,50 +186,7 @@ class MainActivity : AppCompatActivity() {
             }, animation_ur.getDuration())
 
 
-
             bat_code=1;
-
-            //redBox.animate().translationX(200f).translationY(200f)
-//            animation_ur.setFillAfter(true)
-//
-//            animation_ur.setInterpolator(AccelerateInterpolator())
-//
-//            animation_ur.setFillAfter(true)
-//            Handler().postDelayed(Runnable {
-//                redBox.x = 922f
-//                redBox.y = 1302f
-//                   Log.d("msge","end")
-//            }, animation_ur.getDuration())
-//
-//
-//            animation_rd.setInterpolator(AccelerateInterpolator())
-//
-//            animation_rd.setFillAfter(true)
-//            Handler().postDelayed(Runnable {
-//                greenBox.x = 622f
-//                greenBox.y = 1611f
-//                Log.d("msge","end")
-//            }, animation_rd.getDuration())
-//
-//            animation_dl.setInterpolator(AccelerateInterpolator())
-//
-//            animation_dl.setFillAfter(true)
-//            Handler().postDelayed(Runnable {
-//                blueBox.x = 338f
-//                blueBox.y = 1302f
-//                Log.d("msge","end")
-//            }, animation_dl.getDuration())
-//
-//            animation_lu.setInterpolator(AccelerateInterpolator())
-//
-//            animation_lu.setFillAfter(true)
-//            Handler().postDelayed(Runnable {
-//                yellowBox.x = 608f
-//                yellowBox.y = 1002f
-//                Log.d("msge","end")
-//            }, animation_lu.getDuration())
-//
-//
 
         }
 
