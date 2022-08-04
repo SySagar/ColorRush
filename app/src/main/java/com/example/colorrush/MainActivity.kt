@@ -1,20 +1,20 @@
 package com.example.colorrush
 
-import android.R.anim
 import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.*
-import java.lang.Runnable
-import kotlin.properties.Delegates
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     var ball_code =0
     var bat_code =0
     var score : Int =0;
+    var rnds=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val redBox=findViewById<ImageView>(R.id.redBox)
-        val blueBox=findViewById<ImageView>(R.id.blueBox)
-        val greenBox=findViewById<ImageView>(R.id.greenBox)
-        val yellowBox=findViewById<ImageView>(R.id.yellowBox)
-
-
+        val score_card=findViewById<TextView>(R.id.nos)
+        val handler = Handler()
 
         val blueBall=findViewById<ImageView>(R.id.blueball)
         val greenBall=findViewById<ImageView>(R.id.greenball)
@@ -47,10 +44,9 @@ class MainActivity : AppCompatActivity() {
 
 
         GlobalScope.launch {
-
             while(true)
             {val job = GlobalScope.launch {
-                val rnds = (1..4).random()
+                rnds = (1..4).random()
 
                 if (rnds == 1) {
                     ball_code = 1;
@@ -70,10 +66,10 @@ class MainActivity : AppCompatActivity() {
             runBlocking {
 
                 job.join()
-
+                Log.d("msge",""+rnds)
                 val ball_animation: Animation =
                     AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
-                if (ball_code == 1) {
+                if (ball_code == 3) {
                     blueBall.startAnimation(ball_animation)
                     redBall.visibility = View.INVISIBLE
                     greenBall.visibility = View.INVISIBLE
@@ -85,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     blueBall.visibility = View.INVISIBLE
                     yellowBall.visibility = View.INVISIBLE
                 }
-                if (ball_code == 3) {
+                if (ball_code == 1) {
                     redBall.startAnimation(ball_animation)
                     blueBall.visibility = View.INVISIBLE
                     greenBall.visibility = View.INVISIBLE
@@ -104,9 +100,16 @@ class MainActivity : AppCompatActivity() {
                     score--;
 
             }
-                delay(1000)
+
+                delay(3000)
                 job.cancel()
+
+
+                handler.post({ //Do something after delay
+                    score_card.setText(""+score)
+                })
         }
+
 
         }
 
@@ -182,7 +185,6 @@ class MainActivity : AppCompatActivity() {
                 blueBox.setImageResource(R.drawable.green);
                 yellowBox.setImageResource(R.drawable.blue);
                 redBox.setImageResource(R.drawable.yellow);
-                   Log.d("msge","end")
             }, animation_ur.getDuration())
 
 
