@@ -15,10 +15,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.lang.Math.abs
+import java.lang.Thread.sleep
 
 
 class MainActivity : AppCompatActivity() {
-    var counter : Int =3
+    var counter : Int =-1
     var ball_code =0
     var bat_code =0
     var score : Int =0;
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             while(true)
-            {val job = GlobalScope.launch {
+            {
                 rnds = (1..4).random()
 
                 if (rnds == 1) {
@@ -61,11 +63,6 @@ class MainActivity : AppCompatActivity() {
                                 ball_code = 4;
                             }
 
-            }
-
-            runBlocking {
-
-                job.join()
                 Log.d("msge",""+rnds)
                 val ball_animation: Animation =
                     AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
@@ -99,11 +96,10 @@ class MainActivity : AppCompatActivity() {
                 else
                     score--;
 
-            }
 
-                delay(3000)
-                job.cancel()
+                sleep(3000)
 
+                Log.d("msge","this : "+rnds)
 
                 handler.post({ //Do something after delay
                     score_card.setText(""+score)
@@ -117,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
     fun leftRotate(view : View)
     {
-        counter++;
+        counter--;
         val redBox=findViewById<ImageView>(R.id.redBox)
         val blueBox=findViewById<ImageView>(R.id.blueBox)
         val greenBox=findViewById<ImageView>(R.id.greenBox)
@@ -132,133 +128,114 @@ class MainActivity : AppCompatActivity() {
         val animation_ru : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.left_rotate_ru);
         greenBox.startAnimation(animation_ru);
 
-        if (counter%4==0)
-        {}
+        Log.d("out",""+counter)
 
 
-    }
+        if((counter%4)==-1) {
+            Handler().postDelayed(Runnable {
+                greenBox.setImageResource(R.drawable.blue);
+                blueBox.setImageResource(R.drawable.yellow);
+                yellowBox.setImageResource(R.drawable.red);
+                redBox.setImageResource(R.drawable.green);
+            }, 500)
 
-    fun View.getLocationOnScreen(view: View): Point
-    {
-        val location = IntArray(2)
-        view.getLocationOnScreen(location)
-        return Point(location[0],location[1])
+
+            bat_code=4;
+
+        }
+        else
+            if((counter%4)==-2)
+            {
+                Handler().postDelayed(Runnable {
+                    greenBox.setImageResource(R.drawable.yellow);
+                    blueBox.setImageResource(R.drawable.red);
+                    yellowBox.setImageResource(R.drawable.green);
+                    redBox.setImageResource(R.drawable.blue);
+                }, 500)
+
+
+                bat_code=3;
+
+            }
+            else
+                if((counter%4)==-3)
+                {
+                    Handler().postDelayed(Runnable {
+                        greenBox.setImageResource(R.drawable.red);
+                        blueBox.setImageResource(R.drawable.green);
+                        yellowBox.setImageResource(R.drawable.blue);
+                        redBox.setImageResource(R.drawable.yellow);
+                    }, 500)
+
+                    bat_code=2;
+
+                }
+                else
+                    if(counter%4==0)
+                    {
+
+                        Handler().postDelayed(Runnable {
+                            greenBox.setImageResource(R.drawable.green);
+                            blueBox.setImageResource(R.drawable.blue);
+                            yellowBox.setImageResource(R.drawable.yellow);
+                            redBox.setImageResource(R.drawable.red);
+                        }, 500)
+
+                        bat_code=3;
+
+                    }
+                        else
+                            if(counter%4==1)
+                            {
+                                bat_code=2
+
+                                Handler().postDelayed(Runnable {
+                                    greenBox.setImageResource(R.drawable.yellow);
+                                    blueBox.setImageResource(R.drawable.red);
+                                    yellowBox.setImageResource(R.drawable.green);
+                                    redBox.setImageResource(R.drawable.blue);
+                                    Log.d("msge","end")
+                                }, 500)
+                            }
+                            else
+                                if(counter%4==2)
+                                {
+                                    bat_code=3
+
+                                    Handler().postDelayed(Runnable {
+                                        greenBox.setImageResource(R.drawable.blue);
+                                        blueBox.setImageResource(R.drawable.yellow);
+                                        yellowBox.setImageResource(R.drawable.red);
+                                        redBox.setImageResource(R.drawable.green);
+                                        Log.d("msge","end")
+                                    }, 500)
+                                }
+                                else
+                                    if(counter%4==3)
+                                    {
+                                        bat_code=4
+
+                                        Handler().postDelayed(Runnable {
+                                            greenBox.setImageResource(R.drawable.green);
+                                            blueBox.setImageResource(R.drawable.blue);
+                                            yellowBox.setImageResource(R.drawable.yellow);
+                                            redBox.setImageResource(R.drawable.red);
+                                            Log.d("msge","end")
+                                        }, 500)
+                                    }
+
+
+
     }
 
     fun rightRotate(view : View)
     {
-
-
-
 
         counter++;
         val redBox=findViewById<ImageView>(R.id.redBox)
         val blueBox=findViewById<ImageView>(R.id.blueBox)
         val greenBox=findViewById<ImageView>(R.id.greenBox)
         val yellowBox=findViewById<ImageView>(R.id.yellowBox)
-        //val ball=findViewById<ImageView>(R.id.ball)
-
-//
-//        var run = Runnable{
-//            val ball_animation: Animation =
-//                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
-//            ball.startAnimation(ball_animation);
-//        }
-
-
-        if(counter%4==0) {
-            val animation_ur: Animation =
-                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_ur);
-            redBox.startAnimation(animation_ur);
-            val animation_rd: Animation =
-                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_rd);
-            greenBox.startAnimation(animation_rd);
-            val animation_dl: Animation =
-                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_dl);
-            blueBox.startAnimation(animation_dl);
-            val animation_lu: Animation =
-                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_lu);
-            yellowBox.startAnimation(animation_lu);
-
-            Handler().postDelayed(Runnable {
-                greenBox.setImageResource(R.drawable.red);
-                blueBox.setImageResource(R.drawable.green);
-                yellowBox.setImageResource(R.drawable.blue);
-                redBox.setImageResource(R.drawable.yellow);
-            }, animation_ur.getDuration())
-
-
-            bat_code=1;
-
-        }
-
-
-        else
-        if(counter%4==1)
-        {
-            val animation_ur : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_ur);
-            yellowBox.startAnimation(animation_ur);
-            val animation_rd : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_rd);
-            redBox.startAnimation(animation_rd);
-            val animation_dl : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_dl);
-            greenBox.startAnimation(animation_dl);
-            val animation_lu : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_lu);
-            blueBox.startAnimation(animation_lu);
-
-            bat_code=2
-
-            Handler().postDelayed(Runnable {
-                greenBox.setImageResource(R.drawable.yellow);
-                blueBox.setImageResource(R.drawable.red);
-                yellowBox.setImageResource(R.drawable.green);
-                redBox.setImageResource(R.drawable.blue);
-                Log.d("msge","end")
-            }, animation_ur.getDuration())
-        }
-        else
-        if(counter%4==2)
-        {
-            val animation_ur : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_ur);
-            blueBox.startAnimation(animation_ur);
-            val animation_rd : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_rd);
-            yellowBox.startAnimation(animation_rd);
-            val animation_dl : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_dl);
-            redBox.startAnimation(animation_dl);
-            val animation_lu : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_lu);
-            greenBox.startAnimation(animation_lu);
-
-            bat_code=3
-
-            Handler().postDelayed(Runnable {
-                greenBox.setImageResource(R.drawable.blue);
-                blueBox.setImageResource(R.drawable.yellow);
-                yellowBox.setImageResource(R.drawable.red);
-                redBox.setImageResource(R.drawable.green);
-                Log.d("msge","end")
-            }, animation_ur.getDuration())
-        }
-        else
-        if(counter%4==3)
-        {
-            val animation_ur : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_ur);
-            greenBox.startAnimation(animation_ur);
-            val animation_rd : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_rd);
-            blueBox.startAnimation(animation_rd);
-            val animation_dl : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_dl);
-            yellowBox.startAnimation(animation_dl);
-            val animation_lu : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_lu);
-            redBox.startAnimation(animation_lu);
-
-            bat_code=4
-
-            Handler().postDelayed(Runnable {
-                greenBox.setImageResource(R.drawable.green);
-                blueBox.setImageResource(R.drawable.blue);
-                yellowBox.setImageResource(R.drawable.yellow);
-                redBox.setImageResource(R.drawable.red);
-                Log.d("msge","end")
-            }, animation_ur.getDuration())
-        }
 
         val animation_ur : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_ur);
         redBox.startAnimation(animation_ur);
@@ -268,6 +245,102 @@ class MainActivity : AppCompatActivity() {
         blueBox.startAnimation(animation_dl);
         val animation_lu : Animation =AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_rotate_lu);
         yellowBox.startAnimation(animation_lu);
+
+        Log.d("out",""+counter)
+
+
+        if(counter%4==0) {
+
+            Handler().postDelayed(Runnable {
+                greenBox.setImageResource(R.drawable.red);
+                blueBox.setImageResource(R.drawable.green);
+                yellowBox.setImageResource(R.drawable.blue);
+                redBox.setImageResource(R.drawable.yellow);
+            }, 500)
+
+
+            bat_code=1;
+
+        }
+        else
+        if(counter%4==1)
+        {
+            bat_code=2
+
+            Handler().postDelayed(Runnable {
+                greenBox.setImageResource(R.drawable.yellow);
+                blueBox.setImageResource(R.drawable.red);
+                yellowBox.setImageResource(R.drawable.green);
+                redBox.setImageResource(R.drawable.blue);
+                Log.d("msge","end")
+            }, 500)
+        }
+        else
+        if(counter%4==2)
+        {
+            bat_code=3
+
+            Handler().postDelayed(Runnable {
+                greenBox.setImageResource(R.drawable.blue);
+                blueBox.setImageResource(R.drawable.yellow);
+                yellowBox.setImageResource(R.drawable.red);
+                redBox.setImageResource(R.drawable.green);
+                Log.d("msge","end")
+            }, 500)
+        }
+        else
+        if(counter%4==3)
+        {
+            bat_code=4
+
+            Handler().postDelayed(Runnable {
+                greenBox.setImageResource(R.drawable.green);
+                blueBox.setImageResource(R.drawable.blue);
+                yellowBox.setImageResource(R.drawable.yellow);
+                redBox.setImageResource(R.drawable.red);
+                Log.d("msge","end")
+            }, 500)
+        }
+            else
+            if((counter%4)==-1) {
+                Handler().postDelayed(Runnable {
+                    greenBox.setImageResource(R.drawable.blue);
+                    blueBox.setImageResource(R.drawable.yellow);
+                    yellowBox.setImageResource(R.drawable.red);
+                    redBox.setImageResource(R.drawable.green);
+                }, 500)
+
+
+                bat_code=4;
+
+            }
+            else
+                if((counter%4)==-2)
+                {
+                    Handler().postDelayed(Runnable {
+                        greenBox.setImageResource(R.drawable.yellow);
+                        blueBox.setImageResource(R.drawable.red);
+                        yellowBox.setImageResource(R.drawable.green);
+                        redBox.setImageResource(R.drawable.blue);
+                    }, 500)
+
+
+                    bat_code=3;
+
+                }
+                else
+                    if((counter%4)==-3)
+                    {
+                        Handler().postDelayed(Runnable {
+                            greenBox.setImageResource(R.drawable.red);
+                            blueBox.setImageResource(R.drawable.green);
+                            yellowBox.setImageResource(R.drawable.blue);
+                            redBox.setImageResource(R.drawable.yellow);
+                        }, 500)
+
+                        bat_code=2;
+
+                    }
 
     }
 }
