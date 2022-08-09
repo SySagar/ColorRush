@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     var counter : Int =0
     var ball_code =0
     var bat_code =0
-    var score : Int =0;
+    var score : Int =0
     var rnds=0
 
 
@@ -29,13 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         setContentView(R.layout.activity_main)
 
         val score_card=findViewById<TextView>(R.id.nos)
         val handler = Handler()
-        val animationView : LottieAnimationView= findViewById(R.id.burst);
+        val animationView : LottieAnimationView= findViewById(R.id.burst)
         val Ball=findViewById<ImageView>(R.id.ball)
 
 
@@ -47,21 +47,21 @@ class MainActivity : AppCompatActivity() {
                 rnds = (1..4).random()
 
                 if (rnds == 1) {
-                    ball_code = 1;
+                    ball_code = 1
                 } else
                     if (rnds == 2) {
-                        ball_code = 2;
+                        ball_code = 2
                     } else
                         if (rnds == 3) {
-                            ball_code = 3;
+                            ball_code = 3
                         } else
                             if (rnds == 4) {
-                                ball_code = 4;
+                                ball_code = 4
                             }
 
                 Log.d("msge",""+rnds)
                 val ball_animation: Animation =
-                    AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
+                    AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down)
                 handler.post { //Do something after delay
 
 
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     fun leftRotate(view : View)
     {
-        counter--;
+        counter--
         val redBox=findViewById<ImageView>(R.id.redBox)
         val blueBox=findViewById<ImageView>(R.id.blueBox)
         val greenBox=findViewById<ImageView>(R.id.greenBox)
