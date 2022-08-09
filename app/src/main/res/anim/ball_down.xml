@@ -6,7 +6,7 @@
         android:startOffset="1000"
         android:fromYDelta="0"
         android:toYDelta="747"
-        android:duration="1000"
+        android:duration="1800"
         android:repeatCount="infinite" />
 
 </set>

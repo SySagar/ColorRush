@@ -1,6 +1,5 @@
 package com.example.colorrush
 
-import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -11,12 +10,10 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.lang.Math.abs
-import java.lang.Thread.sleep
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     var bat_code =0
     var score : Int =0;
     var rnds=0
-    var prev_state=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,16 +35,15 @@ class MainActivity : AppCompatActivity() {
 
         val score_card=findViewById<TextView>(R.id.nos)
         val handler = Handler()
+        val animationView : LottieAnimationView= findViewById(R.id.burst);
+        val Ball=findViewById<ImageView>(R.id.ball)
 
-        val blueBall=findViewById<ImageView>(R.id.blueball)
-        val greenBall=findViewById<ImageView>(R.id.greenball)
-        val yellowBall=findViewById<ImageView>(R.id.yellowball)
-        val redBall=findViewById<ImageView>(R.id.redball)
 
 
         GlobalScope.launch {
             while(true)
             {
+                animationView.visibility=View.INVISIBLE
                 rnds = (1..4).random()
 
                 if (rnds == 1) {
@@ -67,52 +62,48 @@ class MainActivity : AppCompatActivity() {
                 Log.d("msge",""+rnds)
                 val ball_animation: Animation =
                     AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down);
-                if (ball_code == 3) {
+                handler.post { //Do something after delay
 
-                    redBall.visibility = View.INVISIBLE
-                    greenBall.visibility = View.INVISIBLE
-                    yellowBall.visibility = View.INVISIBLE
-                    blueBall.startAnimation(ball_animation)
+
+                    if (ball_code == 3) {
+
+                        Ball.setImageResource(R.drawable.green_ball)
+
+                    }
+                    if (ball_code == 2) {
+
+                        Ball.setImageResource(R.drawable.blue_ball)
+                    }
+                    if (ball_code == 1) {
+                        Ball.setImageResource(R.drawable.yellow_ball)
+                    }
+                    if (ball_code == 4) {
+                        Ball.setImageResource(R.drawable.red_ball)
+                    }
+
+
                 }
-                if (ball_code == 2) {
-
-                    redBall.visibility = View.INVISIBLE
-                    blueBall.visibility = View.INVISIBLE
-                    yellowBall.visibility = View.INVISIBLE
-                    greenBall.startAnimation(ball_animation)
-                }
-                if (ball_code == 1) {
-
-                    blueBall.visibility = View.INVISIBLE
-                    greenBall.visibility = View.INVISIBLE
-                    yellowBall.visibility = View.INVISIBLE
-                    redBall.startAnimation(ball_animation)
-                }
-                if (ball_code == 4) {
-
-                    redBall.visibility = View.INVISIBLE
-                    greenBall.visibility = View.INVISIBLE
-                    blueBall.visibility = View.INVISIBLE
-                    yellowBall.startAnimation(ball_animation)
-                }
-
-                if (ball_code == bat_code)
-                    score++;
-                else
-                    score--;
-
-
+                Ball.startAnimation(ball_animation)
                 delay(3000)
+                if (ball_code == bat_code)
+                {score++
 
-                handler.post({ //Do something after delay
-                    score_card.setText(""+score)
-                })
+                    handler.post {
+                        animationView.visibility=View.VISIBLE
+                        animationView.playAnimation()}
+                }
+                else
+                    score--
+                handler.post {
+
+                    score_card.setText("" + score)
+
+                }
             }
 
-
         }
-
     }
+
 
     fun leftRotate(view : View)
     {
@@ -143,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             }, 500)
 
 
-            bat_code=4;
+            bat_code=3;
 
         }
         else
@@ -157,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                 }, 500)
 
 
-                bat_code=3;
+                bat_code=2;
 
             }
             else
@@ -170,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                         redBox.setImageResource(R.drawable.yellow);
                     }, 500)
 
-                    bat_code=2;
+                    bat_code=1;
 
                 }
                 else
@@ -227,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                                         Log.d("msge","end")
                                     }, 500)
                                 }
-        
+
     }
 
     fun rightRotate(view : View)
@@ -313,7 +304,7 @@ class MainActivity : AppCompatActivity() {
                             }, 500)
 
 
-                            bat_code=4;
+                            bat_code=3;
 
                         }
                         else
@@ -327,7 +318,7 @@ class MainActivity : AppCompatActivity() {
                                 }, 500)
 
 
-                                bat_code=3;
+                                bat_code=2;
 
                             }
                             else
@@ -340,7 +331,7 @@ class MainActivity : AppCompatActivity() {
                                         redBox.setImageResource(R.drawable.yellow);
                                     }, 500)
 
-                                    bat_code=2;
+                                    bat_code=1;
 
                                 }
 

@@ -126,7 +126,7 @@
         app:srcCompat="@drawable/yellow" />
 
     <ImageView
-        android:id="@+id/blueball"
+        android:id="@+id/ball"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
@@ -136,42 +136,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/blue_ball" />
-
-    <ImageView
-        android:id="@+id/yellowball"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/yellow_ball" />
-
-    <ImageView
-        android:id="@+id/redball"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/red_ball" />
-
-    <ImageView
-        android:id="@+id/greenball"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/green_ball" />
 
     <TextView
         android:id="@+id/score"
@@ -200,5 +164,21 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/score"
         app:layout_constraintVertical_bias="0.022" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/burst"
+        android:layout_width="232dp"
+        android:layout_height="218dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+
+        app:layout_constraintVertical_bias="0.224"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/burst"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
