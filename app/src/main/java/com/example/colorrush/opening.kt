@@ -17,12 +17,12 @@ class opening  : AppCompatActivity() {
         setContentView(R.layout.intro_screen)
 
         Handler().postDelayed({
-            Intent(this, Home::class.java).also {
+            Intent(this, Login::class.java).also {
                 startActivity(it)
                 finish()
 
             }
-        }, 3900)
+        }, 3800)
 
     }
 }

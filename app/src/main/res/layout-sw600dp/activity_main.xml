@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/right_rotate"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_marginStart="56dp"
         android:onClick="leftRotate"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
@@ -36,8 +36,8 @@
 
     <ImageView
         android:id="@+id/left_rotate"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_marginEnd="56dp"
         android:onClick="rightRotate"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="395dp" />
+        app:layout_constraintGuide_begin="583dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -79,8 +79,8 @@
 
     <ImageView
         android:id="@+id/blueBox"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.498"
@@ -91,8 +91,8 @@
 
     <ImageView
         android:id="@+id/redBox"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.498"
@@ -103,8 +103,8 @@
 
     <ImageView
         android:id="@+id/greenBox"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.753"
@@ -115,8 +115,8 @@
 
     <ImageView
         android:id="@+id/yellowBox"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.246"
@@ -127,8 +127,8 @@
 
     <ImageView
         android:id="@+id/ball"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.498"
@@ -143,7 +143,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/amatic"
         android:text="Score"
-        android:textSize="40sp"
+        android:textSize="80sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -157,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        android:textSize="35sp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.498"

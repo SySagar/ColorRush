@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1012452906439",
+    "project_id": "colorrush-dad05",
+    "storage_bucket": "colorrush-dad05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012452906439:android:1f5d2baf01c3d45dcc35e2",
+        "android_client_info": {
+          "package_name": "com.example.colorrush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012452906439-c0vdhs1e4olgjv7lod719jfqhe2ddep3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmDRDH7pu05pnMMwlqgknw8xze3g68dlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012452906439-c0vdhs1e4olgjv7lod719jfqhe2ddep3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

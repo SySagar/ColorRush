@@ -50,7 +50,7 @@ class Home   : AppCompatActivity() {
         thanks.startAnimation(animation)
 
         //inflates the about section in form of a custom toast layout
-        val layout = layoutInflater.inflate(R.layout.thanks, findViewById(R.id.root))
+        val layout = layoutInflater.inflate(R.layout.thanks, findViewById(R.id.rootSignUp))
 
         val myToast = Toast(applicationContext)
 
