@@ -5,10 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -38,13 +42,10 @@ class Login : AppCompatActivity(){
         userPassword = findViewById(R.id.password)
 
         val loginButton=findViewById<Button>(R.id.LoginButton)
-
-        loginButton.setOnClickListener(View.OnClickListener { registerNewUser() })
+        loginButton.setOnClickListener(View.OnClickListener { previousUser() })
 
         val new_signup=findViewById<TextView>(R.id.newUser)
-
         new_signup.setOnClickListener(View.OnClickListener {
-
             val signUpIntent=Intent(this, SignUp::class.java)
             startActivity(signUpIntent)
         })
@@ -95,89 +96,43 @@ class Login : AppCompatActivity(){
             return
         }
 
-        Log.d("this",""+name+"\n"+password)
-
         mAuth.signInWithEmailAndPassword(name, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = mAuth.currentUser
-                    //updateUI(user)
+                    val homeIntent=Intent(this, Home::class.java)
+                    startActivity(homeIntent)
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.makeText(baseContext, "Not a registered member",
                         Toast.LENGTH_SHORT).show()
-                   // updateUI(null)
-                }
-            }
-    }
-
-
-    private fun registerNewUser() {
-
-
-        val name: String
-        val password: String
-        name = userName.text.toString()
-        password = userPassword.text.toString()
-
-
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(
-                applicationContext,
-                "Please enter your name!!",
-                Toast.LENGTH_LONG
-            )
-                .show()
-            return
-        }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(
-                applicationContext,
-                "Please enter password!!",
-                Toast.LENGTH_LONG
-            )
-                .show()
-            return
-        }
-
-        Log.d("this",""+name+"\n"+password)
-
-        // create new user or register new user
-        mAuth.createUserWithEmailAndPassword(name, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Registration successful!",
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
-
-
-                    // if the user created intent to login activity
-                    val intent = Intent(
-                        this@Login,
-                        Home::class.java
-                    )
-                    startActivity(intent)
-                } else {
-
-                    // Registration failed
-                    Toast.makeText(
-                        applicationContext, "Registration failed!!"
-                                + " Please try again later",
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
+                    invalid()
 
                 }
             }
     }
 
+    fun invalid()
+    {
+        //inflates the about section in form of a custom toast layout
+        val layout = layoutInflater.inflate(R.layout.wrong, findViewById(R.id.root))
 
+        val wrong = layout.findViewById<LottieAnimationView>(R.id.invalidUser)
+        val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        //starts the animation
+        wrong.startAnimation(animation)
+        val myToast = Toast(applicationContext)
+
+        myToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+        myToast.view = layout//setting the view of custom toast layout
+
+        myToast.duration=Toast.LENGTH_SHORT
+        myToast.show()
+    }
 
 }
 

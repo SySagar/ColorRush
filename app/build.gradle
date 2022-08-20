@@ -51,6 +51,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0-alpha02'
     implementation 'com.google.firebase:firebase-core:16.0.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    // for adding recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+
+    // for adding cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }
 

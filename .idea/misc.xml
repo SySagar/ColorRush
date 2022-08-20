@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Colorrush/app/src/main/res/drawable/background.xml" value="0.2525" />
+        <entry key="..\:/Colorrush/app/src/main/res/drawable/ll_bg.xml" value="0.2525" />
         <entry key="..\:/Colorrush/app/src/main/res/drawable/oval_button.xml" value="0.136" />
         <entry key="..\:/Colorrush/app/src/main/res/layout-sw320dp/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Colorrush/app/src/main/res/layout-sw320dp/home_screen.xml" value="0.2" />
@@ -14,15 +15,18 @@
         <entry key="..\:/Colorrush/app/src/main/res/layout-sw720dp/activity_main.xml" value="0.2" />
         <entry key="..\:/Colorrush/app/src/main/res/layout-sw720dp/home_screen.xml" value="0.190625" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/about.xml" value="0.27447916666666666" />
-        <entry key="..\:/Colorrush/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Colorrush/app/src/main/res/layout/activity_main.xml" value="1.0748898678414096" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/home_screen.xml" value="1.0748898678414096" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/intro.xml" value="0.6578947368421053" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/intro_screen.xml" value="0.27447916666666666" />
+        <entry key="..\:/Colorrush/app/src/main/res/layout/item.xml" value="0.16486486486486487" />
+        <entry key="..\:/Colorrush/app/src/main/res/layout/leaderboard.xml" value="0.16418918918918918" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/login_page.xml" value="0.2" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/oval_button.xml" value="0.6578947368421053" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/signed.xml" value="0.225" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/signup_page.xml" value="0.225" />
         <entry key="..\:/Colorrush/app/src/main/res/layout/thanks.xml" value="0.27447916666666666" />
+        <entry key="..\:/Colorrush/app/src/main/res/layout/wrong.xml" value="0.22592592592592592" />
       </map>
     </option>
   </component>

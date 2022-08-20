@@ -1,26 +1,24 @@
 package com.example.colorrush
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
-import java.lang.Thread.sleep
+
 
 class SignUp  : AppCompatActivity()  {
 
@@ -73,8 +71,6 @@ class SignUp  : AppCompatActivity()  {
             return
         }
 
-        Log.d("this",""+name+"\n"+password)
-
         // create new user or register new user
         mAuth.createUserWithEmailAndPassword(name, password)
             .addOnCompleteListener(this) { task ->
@@ -86,8 +82,7 @@ class SignUp  : AppCompatActivity()  {
                     )
                         .show()
 
-                    //signed()
-
+                    signed()
 
 
                     // if the user created intent to login activity
@@ -112,27 +107,26 @@ class SignUp  : AppCompatActivity()  {
 
 
     fun signed() {
-        val thanks = findViewById<ImageView>(R.id.signed)
+
+
+        //inflates the about section in form of a custom toast layout
+        val layout = layoutInflater.inflate(R.layout.signed, findViewById(R.id.root))
+
+        val thanks = layout.findViewById<LottieAnimationView>(R.id.signUpVerification)
         val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
         //starts the animation
         thanks.startAnimation(animation)
-
-        //inflates the about section in form of a custom toast layout
-        val layout = layoutInflater.inflate(R.layout.signed, findViewById(R.id.rootSignUp))
-
         val myToast = Toast(applicationContext)
 
         myToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
         myToast.view = layout//setting the view of custom toast layout
-        val countDownTimer = object : CountDownTimer(5000, 5000) {
-            override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() {
-                myToast.cancel()
-            }
-        }
+
+        myToast.duration=Toast.LENGTH_LONG
         myToast.show()
-        countDownTimer.start()
+
 
     }
+
+
 
 }
