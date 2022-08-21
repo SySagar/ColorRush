@@ -9,8 +9,16 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,6 +30,9 @@ class MainActivity : AppCompatActivity() {
     var bat_code =0
     var score : Int =0
     var rnds=0
+
+    private lateinit var mAuth: FirebaseAuth
+    lateinit private var userName : TextInputEditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,6 +113,59 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        player_score()
+    }
+
+    fun player_score()
+    {
+        // below line is used to get
+        // reference for our database.
+        val databaseReference = FirebaseDatabase.getInstance().getReference("score")
+        val user : FirebaseUser? = FirebaseAuth.getInstance().currentUser
+
+        if (user != null) {
+            databaseReference.child("Score")
+                .child((user.uid))
+                .child("result")
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(tasksSnapshot: DataSnapshot) {
+                   if(tasksSnapshot.exists())
+
+                    tasksSnapshot.ref.setValue(score)
+                }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+            })
+        }
+
+
+        // we are use add value event listener method
+        // which is called with database reference.
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // inside the method of on Data change we are setting
+                // our object class to our database reference.
+                // data base reference will sends data to firebase.
+                databaseReference.setValue(score)
+
+                // after adding this data we are showing toast message.
+                Toast.makeText(this@MainActivity, "you scored something", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // if the data is not added or it is cancelled then
+                // we are displaying a failure toast message.
+                Toast.makeText(this@MainActivity, "Fail to add data $error", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
     }
 
 

@@ -43,6 +43,17 @@ class Home   : AppCompatActivity() {
 
     }
 
+    fun leaderboard(view : View)
+    {
+        val i = Intent(
+            this@Home,
+            LeaderBoard::class.java
+        )
+        //Intent is used to switch from one activity to another.
+        startActivity(i)
+
+    }
+
     fun thanks(view: View) {
         val thanks = findViewById<ImageView>(R.id.like)
         val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
