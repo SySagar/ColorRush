@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class Home   : AppCompatActivity() {
 
@@ -45,12 +47,12 @@ class Home   : AppCompatActivity() {
 
     fun leaderboard(view : View)
     {
-        val i = Intent(
+        val leaderBoard_intent = Intent(
             this@Home,
             LeaderBoard::class.java
         )
         //Intent is used to switch from one activity to another.
-        startActivity(i)
+        startActivity(leaderBoard_intent)
 
     }
 
@@ -75,6 +77,12 @@ class Home   : AppCompatActivity() {
         }
         myToast.show()
         countDownTimer.start()
+
+
+        val retrofitBuilder= Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://api.github.com/")
+            .build()
 
     }
 

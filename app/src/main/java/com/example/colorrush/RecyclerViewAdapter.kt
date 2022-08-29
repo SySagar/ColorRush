@@ -1,47 +1,60 @@
 package com.example.colorrush
 
-import android.R.attr.data
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.colorrush.ItemsViewModel
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+// FirebaseRecyclerAdapter is a class provided by
+// FirebaseUI. it provides functions to bind, adapt and show
+// database contents in a Recycler View
+internal class
+personAdapter(
+    options: FirebaseRecyclerOptions<player_details>
+) : FirebaseRecyclerAdapter<player_details, personAdapter.personsViewholder>(options) {
+    // Function to bind the view in Card view(here
+    // "person.xml") with data in
+    // model class(here "person.class")
+    override fun onBindViewHolder(
+        holder: personsViewholder,
+        position: Int, model: player_details
+    ) {
 
-class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+        // Add firstname from model class (here
+        // "person.class")to appropriate view in Card
+        // view (here "person.xml")
+        holder.playerName.text = model.getName()
 
-    // create new views
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
-        val view = LayoutInflater.from(parent.context)
+        holder.playerScore.text= model.getScore().toString()
+
+    }
+
+    // Function to tell the class about the Card view (here
+    // "person.xml")in
+    // which the data will be shown
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): personsViewholder {
+        val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item, parent, false)
-
-        return ViewHolder(view)
-    }
-
-    // binds the list items to a view
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        val ItemsViewModel = mList[position]
-
-
-        // sets the text to the textview from our itemHolder class
-        holder.textView.text = ItemsViewModel.text
-
-    }
-
-    // return the number of the items in the list
-    override fun getItemCount(): Int {
-        return mList.size
-    }
-
-    // Holds the views for adding it to image and text
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-
-        val textView: TextView = itemView.findViewById(R.id.name)
+        return personsViewholder(view)
     }
 
 
+    internal inner class personsViewholder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
+        var playerName: TextView
+        var playerScore: TextView
+
+
+        init {
+            playerName = itemView.findViewById(R.id.name)
+            playerScore = itemView.findViewById(R.id.player_score)
+
+        }
+    }
 }

@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -30,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     var bat_code =0
     var score : Int =0
     var rnds=0
+    var lives=3;
 
     private lateinit var mAuth: FirebaseAuth
     lateinit private var userName : TextInputEditText
@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
         val handler = Handler()
         val animationView : LottieAnimationView= findViewById(R.id.burst)
         val Ball=findViewById<ImageView>(R.id.ball)
+
+        val game_over=findViewById<LottieAnimationView>(R.id.game_over)
+        game_over.visibility=View.INVISIBLE
 
 
 
@@ -104,7 +107,42 @@ class MainActivity : AppCompatActivity() {
                         animationView.playAnimation()}
                 }
                 else
-                    score--
+                {
+
+                    handler.post {
+
+                        val life1=findViewById<ImageView>(R.id.life1)
+                        val life2=findViewById<ImageView>(R.id.life2)
+                        val life3=findViewById<ImageView>(R.id.life3)
+                        lives--;
+
+                        if(lives==2)
+                            life3.visibility=View.GONE
+
+                        if(lives==1)
+                            life2.visibility=View.GONE
+
+                        if(lives==0)
+                        {life1.visibility=View.GONE
+                            val game_over=findViewById<LottieAnimationView>(R.id.game_over)
+                            game_over.visibility=View.VISIBLE
+                            game_over.playAnimation()
+
+
+
+                                val handler = Handler()
+                                handler.postDelayed(
+                                    {finish();},
+                                    3000
+                                )
+
+
+
+                        }
+
+                    }
+
+                    }
                 handler.post {
 
                     score_card.setText("" + score)
