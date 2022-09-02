@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
+//This class is responsible for user login into the app using firebase authentication
 class Login : AppCompatActivity(){
 
 
@@ -60,15 +60,7 @@ class Login : AppCompatActivity(){
             startActivity(homeActivityIntent)
     }
 
-//    public override fun onStart() {
-//        super.onStart()
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        val currentUser = mAuth?.currentUser
-//        if(currentUser != null){
-//            Toast.makeText(applicationContext,"you are not a member",Toast.LENGTH_LONG).show()
-//        }
-//    }
-
+    //This function is to check if there already exist a user for our app
     private fun previousUser()
     {
         val name: String
@@ -80,7 +72,7 @@ class Login : AppCompatActivity(){
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(
                 applicationContext,
-                "Please enter your name!!",
+                "Please enter your email!!",
                 Toast.LENGTH_LONG
             )
                 .show()
@@ -116,6 +108,7 @@ class Login : AppCompatActivity(){
             }
     }
 
+    //if the user doesn't exist then the app notifies with an error entry symbol
     fun invalid()
     {
         //inflates the about section in form of a custom toast layout

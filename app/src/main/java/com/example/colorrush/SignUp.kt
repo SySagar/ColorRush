@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
+//This class is used for new user signup
 class SignUp  : AppCompatActivity()  {
 
     private lateinit var mAuth: FirebaseAuth

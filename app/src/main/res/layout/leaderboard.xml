@@ -14,7 +14,7 @@
         android:fillViewport="false"
         android:requiresFadingEdge="vertical"
         android:visibility="visible"
-        android:background="@drawable/yellow"
+        android:background="@drawable/chat_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.589"

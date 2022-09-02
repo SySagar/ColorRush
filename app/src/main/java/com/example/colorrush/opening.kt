@@ -1,5 +1,6 @@
 package com.example.colorrush
 
+//this is a basic splashscreen for ColorRush application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler

@@ -28,6 +28,17 @@
             android:exported="true"
             android:launchMode="singleTask">
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="color-pop-github-auth-a59yf2kv0-sysagar.vercel.app"
+                    android:scheme="http"/>
+            </intent-filter>
+
         </activity>
 
         <activity
@@ -60,6 +71,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

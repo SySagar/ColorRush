@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //to make the app full screen
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         game_over.visibility=View.INVISIBLE
 
 
-
+        //launches a separate coroutine for the ball drop animation
         GlobalScope.launch {
             while(true)
             {
@@ -73,10 +74,9 @@ class MainActivity : AppCompatActivity() {
                                 ball_code = 4
                             }
 
-                Log.d("msge",""+rnds)
                 val ball_animation: Animation =
                     AnimationUtils.loadAnimation(getApplicationContext(), R.anim.ball_down)
-                handler.post { //Do something after delay
+                handler.post { //updates the ui thread using handler
 
 
                     if (ball_code == 3) {
@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
                 else
                 {
 
+                    //loses a life everytime the ball doesn't matches the bat color
                     handler.post {
 
                         val life1=findViewById<ImageView>(R.id.life1)
@@ -128,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                             game_over.visibility=View.VISIBLE
                             game_over.playAnimation()
 
-
+                            //delay the flow of apllication run by 3 seconds
 
                                 val handler = Handler()
                                 handler.postDelayed(
@@ -136,15 +137,12 @@ class MainActivity : AppCompatActivity() {
                                     3000
                                 )
 
-
-
                         }
-
                     }
 
                     }
                 handler.post {
-
+                    //updates the scoreboard textview from the existing coroutine
                     score_card.setText("" + score)
 
                 }
@@ -194,7 +192,7 @@ class MainActivity : AppCompatActivity() {
         databaseReference.addListenerForSingleValueEvent((postListener))
     }
 
-
+    //the function is called to rotate the bat to left side
     fun leftRotate(view : View)
     {
         counter--
@@ -311,6 +309,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    //the function is called to rotate the bat to right side
     fun rightRotate(view : View)
     {
 

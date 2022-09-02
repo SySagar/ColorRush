@@ -1,17 +1,15 @@
 package com.example.colorrush
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 
 
 class LeaderBoard  : AppCompatActivity(){
@@ -38,22 +36,21 @@ class LeaderBoard  : AppCompatActivity(){
         setContentView(R.layout.leaderboard)
 
         setContentView(R.layout.item)
-        val imageView : ImageView = findViewById(R.id.profile_pic);
-        Picasso.get()
-            .load("https://media.geeksforgeeks.org/wp-content/cdn-uploads/logo-new-2.svg")
-            .into(imageView);
+        val profile_pic : ImageView = findViewById(R.id.profile_pic);
+//        Picasso.get()
+//            .load("https://media.geeksforgeeks.org/wp-content/cdn-uploads/logo-new-2.svg")
+//            .resize(30,30)
+//            .into(profile_pic);
+
 
         setContentView(R.layout.leaderboard)
+
         // getting the recyclerview by its id
         val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)
 
-
-
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<ItemsViewModel>()
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -67,37 +64,18 @@ class LeaderBoard  : AppCompatActivity(){
             .setQuery(query1, player_details::class.java)
             .build()
 
+        Glide.with(this)
+            .load("https://media.geeksforgeeks.org/wp-content/cdn-uploads/logo-new-2.svg")
+            .override(30, 20)
+            .placeholder(R.drawable.red)
+            .dontAnimate()
+            .into(profile_pic)
 
         // This will pass the ArrayList to our Adapter
-        val adapter = personAdapter(options)
+        adapter = personAdapter(options)
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
-
-        Log.d("kaa", "testing 1")
-
-
-
-//        databaseReference!!.addValueEventListener(object : ValueEventListener {
-//            @SuppressLint("NotifyDataSetChanged")
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                 val dp : DataSnapshot
-//                for(dp in snapshot.getChildren())run {
-//                    data.add(ItemsViewModel(dp.child("playerName").getValue().toString()))
-//                    Log.d("kata", "" + snapshot.child("playerName").getValue().toString())
-//
-//                }
-//
-//                adapter.notifyDataSetChanged()
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // calling on cancelled method when we receive
-//                // any error or we are not able to get the data.
-//                Toast.makeText(this@LeaderBoard, "Fail to get data.", Toast.LENGTH_SHORT).show()
-//            }
-//        })
 
     }
 
