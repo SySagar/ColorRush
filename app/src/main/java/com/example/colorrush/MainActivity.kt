@@ -165,8 +165,8 @@ class MainActivity : AppCompatActivity() {
 
         val player =player_details()
 
-        player.playerName="sagar"
-        player.playerscore=score
+        player.setName("Samuel")
+        player.setScore(score)
 
         // we are use add value event listener method
         // which is called with database reference.
