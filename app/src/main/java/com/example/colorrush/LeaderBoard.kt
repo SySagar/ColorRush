@@ -64,12 +64,12 @@ class LeaderBoard  : AppCompatActivity(){
             .setQuery(query1, player_details::class.java)
             .build()
 
-        Glide.with(this)
-            .load("https://media.geeksforgeeks.org/wp-content/cdn-uploads/logo-new-2.svg")
-            .override(30, 20)
-            .placeholder(R.drawable.red)
-            .dontAnimate()
-            .into(profile_pic)
+//        Glide.with(this)
+//            .load("https://media.geeksforgeeks.org/wp-content/cdn-uploads/logo-new-2.svg")
+//            .override(30, 20)
+//            .placeholder(R.drawable.red)
+//            .dontAnimate()
+//            .into(profile_pic)
 
         // This will pass the ArrayList to our Adapter
         adapter = personAdapter(options)
