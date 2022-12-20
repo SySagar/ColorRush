@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.colorrush"
         minSdk 28
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -68,7 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx'
 
 
-    // Dependency for Firebase REaltime Database
+    // Dependency for Firebase Realtime Database
     implementation 'com.google.firebase:firebase-database:19.3.1'
 
     implementation 'com.firebaseui:firebase-ui-database:8.0.1'
@@ -80,6 +80,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.google.android.material:material:1.8.0-beta01'
+    implementation 'com.google.android.gms:play-services-auth:20.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

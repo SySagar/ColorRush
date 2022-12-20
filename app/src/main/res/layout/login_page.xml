@@ -76,6 +76,29 @@
                 android:id="@+id/LoginButton"
                 android:onClick="login"
                 android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+
+                android:paddingBottom="5dp"
+                android:text="or login with"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:typeface="sans" />
+
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/GoogleSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="16dp"
+                android:layout_gravity="bottom|center"
+                android:text="Google"
+                app:icon="@drawable/google"/>
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

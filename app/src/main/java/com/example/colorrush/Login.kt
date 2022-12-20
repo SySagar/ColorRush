@@ -13,10 +13,17 @@ import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 //This class is responsible for user login into the app using firebase authentication
 class Login : AppCompatActivity(){
@@ -25,6 +32,8 @@ class Login : AppCompatActivity(){
     private lateinit var mAuth: FirebaseAuth
     lateinit private var userName : TextInputEditText
     lateinit private var userPassword : TextInputEditText
+    var gso: GoogleSignInOptions? = null
+    var gsc: GoogleSignInClient? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +45,19 @@ class Login : AppCompatActivity(){
 
         setContentView(R.layout.login_page)
 
+        gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gsc = GoogleSignIn.getClient(this, gso!!)
+
+        val acct = GoogleSignIn.getLastSignedInAccount(this)
+        if (acct != null) {
+            navigateToSecondActivity()
+        }
+
+        val GoogleSignINButton=findViewById<Button>(R.id.GoogleSignIn)
+
+        GoogleSignINButton.setOnClickListener(View.OnClickListener { signIn() })
+
         //mAuth= FirebaseAuth.getInstance()
         mAuth = Firebase.auth
         userName = findViewById(R.id.name)
@@ -43,6 +65,7 @@ class Login : AppCompatActivity(){
 
         val loginButton=findViewById<Button>(R.id.LoginButton)
         loginButton.setOnClickListener(View.OnClickListener { previousUser() })
+
 
         val new_signup=findViewById<TextView>(R.id.newUser)
         new_signup.setOnClickListener(View.OnClickListener {
@@ -106,6 +129,33 @@ class Login : AppCompatActivity(){
 
                 }
             }
+    }
+
+    fun signIn() {
+        val signInIntent: Intent = gsc!!.getSignInIntent()
+        startActivityForResult(signInIntent, 1000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1000) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                task.getResult(ApiException::class.java)
+                navigateToSecondActivity()
+            } catch (e: ApiException) {
+                Toast.makeText(applicationContext, "Something went wrong "+e, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    fun navigateToSecondActivity() {
+        finish()
+        val homeIntent=Intent(this, Home::class.java)
+        startActivity(homeIntent)
+//        val intent = Intent(this@Login, Home::class.java)
+//        startActivity(intent)
     }
 
     //if the user doesn't exist then the app notifies with an error entry symbol

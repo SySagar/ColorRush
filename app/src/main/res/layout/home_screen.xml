@@ -35,7 +35,8 @@
         app:layout_constraintVertical_bias="1.0"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/like" />
+        app:lottie_rawRes="@raw/like"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/developer"
